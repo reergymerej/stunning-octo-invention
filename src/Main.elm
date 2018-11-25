@@ -1,6 +1,7 @@
 module Main exposing (main)
 
 import Browser
+import Helpers
 import Html exposing (Html, div, hr, input, text)
 import Html.Attributes exposing (disabled, max, min, type_, value)
 import Html.Events exposing (onInput)
@@ -21,21 +22,6 @@ init _ =
       }
     , Cmd.none
     )
-
-
-jobStress : Int -> Int
-jobStress work =
-    work
-
-
-moneyStress : Int -> Int
-moneyStress work =
-    100 - work
-
-
-freeTime : Int -> Int
-freeTime work =
-    100 - (abs (50 - work) * 2)
 
 
 viewValue : String -> (Int -> Int) -> Int -> Html Msg
@@ -63,9 +49,9 @@ view model =
             ]
             []
         , hr [] []
-        , viewValue "money stress" moneyStress model.work
-        , viewValue "job stress" jobStress model.work
-        , viewValue "free time" freeTime model.work
+        , viewValue "money stress" Helpers.moneyStress model.work
+        , viewValue "job stress" Helpers.jobStress model.work
+        , viewValue "free time" Helpers.freeTime model.work
         ]
 
 
