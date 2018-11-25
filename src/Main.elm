@@ -7,7 +7,7 @@ import Html.Events exposing (onInput)
 
 
 type alias Model =
-    { money : Int
+    { work : Int
     }
 
 
@@ -17,25 +17,30 @@ type Msg
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( { money = 0
+    ( { work = 0
       }
     , Cmd.none
     )
 
 
 jobStress : Int -> Int
-jobStress money =
-    money
+jobStress work =
+    work
 
 
 moneyStress : Int -> Int
-moneyStress money =
-    100 - money
+moneyStress work =
+    100 - work
 
 
 freeTime : Int -> Int
-freeTime money =
-    100 - (abs (50 - money) * 2)
+freeTime work =
+    100 - (abs (50 - work) * 2)
+
+
+viewValue : String -> (Int -> Int) -> Int -> Html Msg
+viewValue label getValue work =
+    div [] [ text (label ++ ": " ++ String.fromInt (getValue work)) ]
 
 
 view : Model -> Html Msg
@@ -45,14 +50,14 @@ view model =
             [ type_ "range"
             , min "0"
             , max "100"
-            , value (String.fromInt model.money)
+            , value (String.fromInt model.work)
             , onInput ChangeMoney
             ]
             []
-        , div [] [ text ("$: " ++ String.fromInt model.money) ]
-        , div [] [ text ("job stress: " ++ String.fromInt (jobStress model.money)) ]
-        , div [] [ text ("money stress: " ++ String.fromInt (moneyStress model.money)) ]
-        , div [] [ text ("free time: " ++ String.fromInt (freeTime model.money)) ]
+        , viewValue "work" (\x -> x) model.work
+        , viewValue "job stress" jobStress model.work
+        , viewValue "money stress" moneyStress model.work
+        , viewValue "free time" freeTime model.work
         ]
 
 
@@ -66,7 +71,7 @@ update msg model =
 
                 Just val ->
                     ( { model
-                        | money = val
+                        | work = val
                       }
                     , Cmd.none
                     )
