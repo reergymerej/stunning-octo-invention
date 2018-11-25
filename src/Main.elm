@@ -33,6 +33,11 @@ moneyStress money =
     100 - money
 
 
+freeTime : Int -> Int
+freeTime money =
+    100 - (abs (50 - money) * 2)
+
+
 view : Model -> Html Msg
 view model =
     div []
@@ -47,6 +52,7 @@ view model =
         , div [] [ text ("$: " ++ String.fromInt model.money) ]
         , div [] [ text ("job stress: " ++ String.fromInt (jobStress model.money)) ]
         , div [] [ text ("money stress: " ++ String.fromInt (moneyStress model.money)) ]
+        , div [] [ text ("free time: " ++ String.fromInt (freeTime model.money)) ]
         ]
 
 
