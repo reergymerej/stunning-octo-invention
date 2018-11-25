@@ -7,8 +7,7 @@ import Html.Events exposing (onInput)
 
 
 type alias Model =
-    { message : String
-    , money : Int
+    { money : Int
     }
 
 
@@ -18,18 +17,26 @@ type Msg
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( { message = "Hello"
-      , money = 0
+    ( { money = 0
       }
     , Cmd.none
     )
 
 
+jobStress : Int -> Int
+jobStress money =
+    money
+
+
+moneyStress : Int -> Int
+moneyStress money =
+    100 - money
+
+
 view : Model -> Html Msg
 view model =
     div []
-        [ div [] [ text model.message ]
-        , input
+        [ input
             [ type_ "range"
             , min "0"
             , max "100"
@@ -38,6 +45,8 @@ view model =
             ]
             []
         , div [] [ text ("$: " ++ String.fromInt model.money) ]
+        , div [] [ text ("job stress: " ++ String.fromInt (jobStress model.money)) ]
+        , div [] [ text ("money stress: " ++ String.fromInt (moneyStress model.money)) ]
         ]
 
 
