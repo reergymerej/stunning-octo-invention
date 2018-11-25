@@ -1,8 +1,8 @@
 module Main exposing (main)
 
 import Browser
-import Html exposing (Html, div, input, text)
-import Html.Attributes exposing (max, min, type_, value)
+import Html exposing (Html, div, hr, input, text)
+import Html.Attributes exposing (disabled, max, min, type_, value)
 import Html.Events exposing (onInput)
 
 
@@ -40,7 +40,15 @@ freeTime work =
 
 viewValue : String -> (Int -> Int) -> Int -> Html Msg
 viewValue label getValue work =
-    div [] [ text (label ++ ": " ++ String.fromInt (getValue work)) ]
+    div []
+        [ div [] [ text label ]
+        , input
+            [ type_ "range"
+            , disabled True
+            , value (String.fromInt (getValue work))
+            ]
+            []
+        ]
 
 
 view : Model -> Html Msg
@@ -54,9 +62,9 @@ view model =
             , onInput ChangeMoney
             ]
             []
-        , viewValue "work" (\x -> x) model.work
-        , viewValue "job stress" jobStress model.work
+        , hr [] []
         , viewValue "money stress" moneyStress model.work
+        , viewValue "job stress" jobStress model.work
         , viewValue "free time" freeTime model.work
         ]
 
