@@ -1,7 +1,7 @@
 module Main exposing (main)
 
 import Browser
-import Helpers
+import Foo.Bango.Helpers as Helpers
 import Html exposing (Html, div, hr, input, text)
 import Html.Attributes exposing (disabled, max, min, type_, value)
 import Html.Events exposing (onInput)

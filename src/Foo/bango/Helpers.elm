@@ -1,4 +1,4 @@
-module Helpers exposing (freeTime, jobStress, moneyStress)
+module Foo.Bango.Helpers exposing (freeTime, jobStress, moneyStress)
 
 
 jobStress : Int -> Int
